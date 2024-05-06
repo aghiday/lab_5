@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Lab 5: JavaScript</title>
+    </head>
+    <body>
+        <form>
+            <label for="myName">Choose a name from this list or enter your own:</label>
+            <input list="names" id="myName" name="myName" />
+            <datalist id="names">
+               
+            </datalist>
+            <br>
+
+            <label for="myLocation">Choose a location from this list or enter your own:</label>
+            <input list="locations" id="myLocation" name="myLocation" />
+            <datalist id="locations">
+                
+            </datalist>
+            <br>
+            
+            <label for="myTime">Choose a time from this list or enter your own:</label>
+            <input list="times" id="myTime" name="myTime" />
+            <datalist id="times">
+                
+            </datalist>
+            <br>
+
+            <label for="myEvent">Choose an event from this list or enter your own:</label>
+            <input list="events" id="myEvent" name="myEvent" />
+            <datalist id="events">
+                
+            </datalist>
+            <br>
+            
+            <button id="generate">Generate a story</button>
+        </form>
+        <p id="story"></p>
+        <script>
+            // DO NOT CHANGE THE FOLLOWING CODE
+
+            function CreateOption(optionText){
+                let newOption = document.createElement("option");
+                newOption.setAttribute("value", optionText);
+                return newOption;
+            }
+
+            function AddToOptionToList(listid, nameoption){
+                const myList = document.getElementById(listid);
+                myList.appendChild(nameoption);
+            }
+
+            function UpdateStory(story){
+                document.getElementById("story").innerHTML = story;
+            }
+
+            function Warning(message="Some of the input values are empty!"){
+                alert(message);
+            }
+            // END OF DO NOT CHANGE
+
+
+        
+
+        // TODO 1: declare an array of 5 different names, an array of 4 different locations, an array of 3 different times (for example, "on Sunday morning"), and an array of 5 different activities (for example, "reading a book") (10 pts)
+        const names = ["Alice", "Bob", "Charlie", "Diana", "Ethan"];
+        const locations = ["Paris", "New York", "Tokyo", "London"];
+        const times = ["in the morning", "at noon", "at night"];
+        const events = ["reading a book", "watching a movie", "going for a walk", "playing video games", "cooking a meal"];
+
+        document.getElementById("generate").addEventListener("click", function(event){
+        event.preventDefault();
+        const myName = document.getElementById("myName").value;
+        const myEvent = document.getElementById("myEvent").value;
+        const myLocation = document.getElementById("myLocation").value;
+        const myTime = document.getElementById("myTime").value;
+
+        // Create an array to track missing fields
+        let missingFields = [];
+        if (!myName) missingFields.push("name");
+        if (!myEvent) missingFields.push("event");
+        if (!myLocation) missingFields.push("location");
+        if (!myTime) missingFields.push("time");
+
+        // Check if any fields are missing
+        if (missingFields.length > 0) {
+            // Construct a message that includes all missing fields
+            let message = "Please provide input for the following fields: " + missingFields.join(", ");
+            Warning(message);
+            return; // Stop further execution if there are missing inputs
+        }
+
+        // If all fields are filled, concatenate them into a meaningful sentence
+        let story = `${myName} will be ${myEvent} ${myLocation} ${myTime}.`;
+        UpdateStory(story); // Display the concatenated story in the HTML
+        });
+
+        // TODO 2: create a for loop that use the CreateOption and AddToOptionToList function to add all items you created in TODO 1 to the suitable datalist
+        window.onload = function() {
+            // Populate names datalist
+            names.forEach(function(name) {
+                const option = CreateOption(name);
+                AddToOptionToList("names", option);
+            });
+
+            // Populate locations datalist
+            locations.forEach(function(location) {
+                const option = CreateOption(location);
+                AddToOptionToList("locations", option);
+            });
+
+            // Populate times datalist
+            times.forEach(function(time) {
+                const option = CreateOption(time);
+                AddToOptionToList("times", option);
+            });
+
+            // Populate events datalist
+            events.forEach(function(event) {
+                const option = CreateOption(event);
+                AddToOptionToList("events", option);
+            });
+        };
+
+
+
+        // TODO 3: Implement a control logic such that if any of the above string is empty, call the Warning function and provide a message that helps the user understand what information is missing. The warning message needs to specified all the fields that are missing (12 pts)
+        document.getElementById("generate").addEventListener("click", function(event){
+            event.preventDefault();
+            const myName = document.getElementById("myName").value;
+            const myEvent = document.getElementById("myEvent").value;
+            const myLocation = document.getElementById("myLocation").value;
+            const myTime = document.getElementById("myTime").value;
+
+            // Create an array to track missing fields
+            let missingFields = [];
+            if (!myName) missingFields.push("name");
+            if (!myEvent) missingFields.push("event");
+            if (!myLocation) missingFields.push("location");
+            if (!myTime) missingFields.push("time");
+
+            // Check if any fields are missing
+            if (missingFields.length > 0) {
+                // Construct a message that includes all missing fields
+                let message = "Please provide input for the following fields: " + missingFields.join(", ");
+                Warning(message);
+                return; // Stop further execution if there are missing inputs
+            }
+
+        // TODO 4: If all fields are filled, concatenate them into a meaningful sentence
+            let story = `${myName} will be ${myEvent} ${myLocation} ${myTime}.`;
+            UpdateStory(story); // Display the concatenated story in the HTML
+
+    // TODO 5: update the story using the UpdateStory function when appropriate (4 pts)
+    //completed in todo 4
+
+            
+        // TODO 5: update the story using the UpdateStory function when appropriate (4pts)
+        
+        
+        // TODO 6: Write a function that can answer the following question: (8pts)
+        function findIndicesOfTarget(nums, target) {
+        let indices = [];
+        for (let i = 0; i < nums.length; i++) {
+            if (nums[i] === target) {
+                indices.push(i);
+            }
+        }
+        // If indices array is empty, return -1
+        return indices.length > 0 ? indices : -1;
+    }
+
+
+    });
+</script>
+
+        </script>
+    </body>
+</html>
